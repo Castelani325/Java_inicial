@@ -3,7 +3,7 @@ import java.util.ArrayList;
 //Criei este documento .java para aprender e praticar um pouco mais sobre a sintaxe básica da linguagem JAVA e suas caracteristicas POO
 
 public class Main { //sintaxe básica do JAVA
-    public static void main(String[] args) { //Método de entrada da Classe (è o primeiro método que a JVM vai executar) //Deve ser executado sempre que criarmos um novo .java
+    public static void main(String[] args) { //Metodo de entrada da Classe (è o primeiro metodo que a JVM vai executar) //Deve ser executado sempre que criarmos um novo .java
 
         //Variaveis em JAVA
 
@@ -100,7 +100,7 @@ public class Main { //sintaxe básica do JAVA
         //OOP ----------> IMPORTANTE !
 
         //Classes = modelo que define a estrutura de um objeto (Atributos(variaveis) e métodos(fuições))
-        //COnstrutor = método especial de um classe -> sempre que o objeto de uma classe for criado
+        //COnstrutor = metodo especial de um classe -> sempre que o objeto de uma classe for criado
 
         //Ex :
 
@@ -110,7 +110,7 @@ public class Main { //sintaxe básica do JAVA
             int quilometragem; //Atributo quilometragem (variável)
             int revisao = 5000; //Atributo revisão (variável)
 
-            public Carro(String modelo, int quilometragem){ //método publico
+            public Carro(String modelo, int quilometragem){ //metodo publico
                 this.modelo = modelo;
                 this.quilometragem = quilometragem;
             }
