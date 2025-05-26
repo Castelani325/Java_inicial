@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
+//Criei este documento .java para aprender e praticar um pouco mais sobre a sintaxe básica da linguagem JAVA e suas caracteristicas POO
+
 public class Main { //sintaxe básica do JAVA
-    public static void main(String[] args) {
+    public static void main(String[] args) { //Método de entrada da Classe (è o primeiro método que a JVM vai executar) //Deve ser executado sempre que criarmos um novo .java
 
         //Variaveis em JAVA
 
@@ -24,12 +26,12 @@ public class Main { //sintaxe básica do JAVA
         //Condicionais
 
         if (bolaeno_teste){
-            System.out.println ("Verdadeiro");
+//            System.out.println ("Verdadeiro");
         }
         //else if (){}
 
         else {
-            System.out.println ("Falso");
+//            System.out.println ("Falso");
         }
 
         //Vetores (lists)
@@ -48,29 +50,29 @@ public class Main { //sintaxe básica do JAVA
         nomes.remove(nomes.get(0)); // Remove do array dinamico
         nomes.remove(1); // Remove do array dinamico
 
-        System.out.println(nomes);
+//        System.out.println(nomes);
 
 
         //Loops
         //for
 
         for (int i = 0; i<nomes.size(); i++){ //inicio + final + incremento por repetição
-            System.out.println(String.format("olá %s", nomes.get(i))); //insere uma variável dentro de um printl
-            System.out.println(i); //insere uma variável dentro de um printl
+//            System.out.println(String.format("olá %s", nomes.get(i))); //insere uma variável dentro de um printl
+//            System.out.println(i); //insere uma variável dentro de um printl
         };
         //%s → string
         // %d → inteiro
         //%f → número decimal (float/double)
 
         for (String nome : nomes){ //esse tipo de for faz a verredura direta de arrays
-            System.out.println(nomes);
+//            System.out.println(nomes);
         }
 
         //WHILE
         int i = 0;
         while(i<10) { //while funciona como uma condição de parada
             i++;
-            System.out.println(i);
+//            System.out.println(i);
         }
 
 
@@ -87,13 +89,66 @@ public class Main { //sintaxe básica do JAVA
 
         String minhaString = String.valueOf(meuInt2); // de int para string
 
-        System.out.println(resultadoInt);
-        System.out.println(meuDouble);
-        System.out.println(meuInt2);
-        System.out.println(minhaString);
+//        System.out.println(resultadoInt);
+//        System.out.println(meuDouble);
+//        System.out.println(meuInt2);
+//        System.out.println(minhaString);
 
 
         //Testando commit via terminal
+
+        //OOP ----------> IMPORTANTE !
+
+        //Classes = modelo que define a estrutura de um objeto (Atributos(variaveis) e métodos(fuições))
+        //COnstrutor = método especial de um classe -> sempre que o objeto de uma classe for criado
+
+        //Ex :
+
+        class Carro { //Classe carro
+
+            String modelo; //Atributo modelo (variável)
+            int quilometragem; //Atributo quilometragem (variável)
+            int revisao = 5000; //Atributo revisão (variável)
+
+            public Carro(String modelo, int quilometragem){ //método publico
+                this.modelo = modelo;
+                this.quilometragem = quilometragem;
+            }
+
+            public void acelerar (){
+                System.out.println("Acelerando o "+ this.modelo + " com " + this.quilometragem + "KM." );
+            }
+
+            public void proxRevisao (){
+                int faltando = this.revisao - this.quilometragem;
+
+                if (faltando >= 500){
+                    System.out.println("Ainda faltam mais de 500KM");
+                }
+                else if (faltando < 500 && faltando > 0 ){
+                    System.out.println("Menos de 500KM para a próxima revisão, tenha cuidado.");
+                }
+                else {
+                    System.out.println("o Carro " + this.modelo + " Já estourou as horas para a revisão em " + Math.abs(faltando) + "KMs"); //Math.abs(faltando) serve para retornar um valor absoluto, sem considerar sinal
+                }
+
+            }
+        }
+
+        Carro meuCarro1 = new Carro("gol", 1000); //Instância meuCarro1 criada (Objeto)
+        Carro meuCarro2 = new Carro("civic", 1500); //Instância meuCarro2 criada (Objeto)
+        Carro meuCarro3 = new Carro("BMW", 4600); //Instância meuCarro3 criada (Objeto)
+        Carro meuCarro4 = new Carro("Audi", 6000); //Instância meuCarro4 criada (Objeto)
+
+        meuCarro1.acelerar();
+        meuCarro2.acelerar();
+        meuCarro3.acelerar();
+        meuCarro4.acelerar();
+
+        meuCarro1.proxRevisao();
+        meuCarro2.proxRevisao();
+        meuCarro3.proxRevisao();
+        meuCarro4.proxRevisao();
 
     }
 }
