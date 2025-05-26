@@ -93,6 +93,8 @@ public class Main { //sintaxe básica do JAVA
         System.out.println(minhaString);
 
 
+        //Testando commit via terminal
+
     }
 }
 
