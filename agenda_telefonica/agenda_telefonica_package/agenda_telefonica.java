@@ -1,6 +1,8 @@
 package agenda_telefonica_package;
 
 import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 
 //Criar um método para deletar o contato 
@@ -13,15 +15,21 @@ public class agenda_telefonica {
 
     /////////////////// Classe para armazenar os dados do contato telefônico ///////////////////
     static class contato_telefonico {
+        
+        
+        /////////////////// Atributos ///////////////////
         private String nome;
         private String numero;
         private String cpf;
+        private static List<contato_telefonico> contatos = new ArrayList<>(); // Lista estática para armazenar todos os contatos
+        
 
         /////////////////// Construtor da classe ///////////////////
         public contato_telefonico(String nome, String numero, String cpf){
             this.nome = nome;
             this.numero = numero;
             this.cpf = cpf;
+            contatos.add(this); // Adiciona o contato à lista de contatos
         }
 
         /////////////////// Métodos ///////////////////
@@ -99,6 +107,15 @@ public class agenda_telefonica {
             return cpf;
         }
     
+        // Método para imprimir todos os contatos
+        public static void imprimircontatos() {
+            for (int i = 0; i < contatos.size(); i++) {
+                System.out.printf(contatos.get(i) + "\n"); 
+            }
+        }
+
+        // Método para pesquisar contato por nome ou número
+        
         
     
     }
