@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 
-//Criar um método para deletar o contato 
-
-//Criar método para PESQUISAR o contato pelo nome OU numero de telefone
-
-//Criar método para imprimir a agenda telefônica
-
 public class agenda_telefonica {
 
     /////////////////// Classe para armazenar os dados do contato telefônico ///////////////////
@@ -114,9 +108,35 @@ public class agenda_telefonica {
             }
         }
 
-        // Método para pesquisar contato por nome ou número
+        // Método para pesquisar contato por nome 
+
+        public void pesquisacontato (String pesquisaString) {
         
-        
-    
+            boolean encontrado = false;
+            for (contato_telefonico contato : contatos) {
+                if (contato.getNome().toLowerCase().contains(pesquisaString.toLowerCase())){
+                    System.out.printf("Contato encontrado : %s, %s, %s", contato.getNome(), contato.getNumero(), contato.getCpf());
+                    encontrado = true; 
+                }
+                if (encontrado == false) {
+                    System.out.printf("Contato não encontrado.");
+                }
+            }
+        }
+
+        // método para apagar um contato
+        public static void apagarcontato(String nomeString) {
+            boolean encontrado = false;
+            for (int i = 0; i < (contatos.size()); i++) {
+                if (contatos.get(i).getNome().equalsIgnoreCase(nomeString)) {
+                    contatos.remove(i);
+                    System.out.printf("Contato encontrado e removido : %s", nomeString);
+                    encontrado = true;
+                }
+                if (encontrado == false) {
+                    System.out.printf("Contato não encontrado.");
+                }              
+            }
+        }
     }
 }
