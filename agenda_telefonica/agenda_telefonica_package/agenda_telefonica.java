@@ -28,6 +28,11 @@ public class agenda_telefonica {
 
         /////////////////// Métodos ///////////////////
 
+        @Override
+        // Método toString para exibir os dados do contato
+        public String toString() {
+            return String.format("Nome: %s, Número: %s, CPF: %s", nome, numero, cpf);
+        }
         // Método Setter para o nome
         public void setNovoNome(String nome_novo) {
             java.util.Scanner scanner = new java.util.Scanner(System.in); //abriu o scanner aqui
