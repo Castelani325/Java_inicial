@@ -115,7 +115,7 @@ public class agenda_telefonica {
 
         // Método para pesquisar contato por nome 
 
-        public void pesquisacontato (String pesquisaString) {
+        public static agenda_telefonica.contato_telefonico pesquisacontato (String pesquisaString) {
         
             boolean encontrado = false;
             for (contato_telefonico contato : contatos) {
@@ -126,7 +126,9 @@ public class agenda_telefonica {
                 if (encontrado == false) {
                     System.out.printf("Contato não encontrado.");
                 }
+                return contato; // Retorna o contato encontrado
             }
+            return null;
         }
 
         // método para apagar um contato

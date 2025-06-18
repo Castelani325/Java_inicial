@@ -73,7 +73,11 @@ public class Main {
                 
                 break;
         
-            case 2: // Pesquisar contato pelo nome
+            case 2: // Pesquisar contato pelo nome //Tem encontrado apenas o primeiro contato registrado com o nome pesquisado, mesmo que existam outros contatos com o mesmo nome.
+                System.out.println("Pesquisar contato pelo nome");
+                System.out.printf("Digite o NOME do contato que deseja pesquisar: ");
+                String nomePesquisa = scanner.nextLine().toUpperCase(); // Convertendo o nome para maiúsculas
+                agenda_telefonica.contato_telefonico.pesquisacontato(nomePesquisa); // Chama o método para pesquisar o contato pelo nome
                 
                 break;
         
@@ -86,6 +90,18 @@ public class Main {
                 break;
         
             case 4: // Editar um contato
+                System.out.println("Editar um contato");
+                System.out.printf("Digite o NOME do contato que deseja editar: ");
+                String Editar = scanner.nextLine().toUpperCase(); // Convertendo o nome para maiúsculas
+                agenda_telefonica.contato_telefonico.pesquisacontato(Editar); // Chama o método para pesquisar o contato pelo nome
+                System.out.printf("Digite o novo NOME do contato: ");
+                String nomeNovo = scanner.nextLine().toUpperCase(); // Convertendo o nome para maiúsculas
+                System.out.printf("Digite o novo NÚMERO do contato: "); 
+                String numeroNovo = scanner.nextLine(); //Continuar daqui -> fazer regex do numero de telefone
+                //fazer variavel de cpf novo + regex de cpf novo
+                // SUbstituir os novos dados na instancia selecionada
+
+                
                 
                 break;
         
