@@ -1,4 +1,4 @@
-package fab.relatorio.api.medico;
+package fab.relatorio.api.endereco;
 
 public record DadosEndereco(String logradouro, String bairro, String cep, String cidade, String uf, String complemento, String numero) {
 
