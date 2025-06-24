@@ -41,4 +41,13 @@ public class Medico {
     // Indica que o campo 'endereco' é um objeto embutido (suas colunas serão incorporadas à tabela 'medicos')
     @Embedded
     private Endereco endereco;
+
+    public Medico(DadosCadastroMedico dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.crm = dados.crm();
+        this.especialidade = dados.especialidade();
+        this.endereco = new Endereco(dados.endereco());
+
+    }
 }
