@@ -1,17 +1,19 @@
 package fab.relatorio.api.controller;
 
 
-import fab.relatorio.api.endereco.Endereco;
 import fab.relatorio.api.medico.DadosCadastroMedico;
+import fab.relatorio.api.medico.DadosListagemMedicos;
 import fab.relatorio.api.medico.Medico;
 import fab.relatorio.api.medico.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -25,8 +27,23 @@ public class medicoController {
     public void cadastrar (@RequestBody @Valid DadosCadastroMedico dados) {
 
         repository.save(new Medico(dados));
-
-
     }
 
+    @GetMapping
+    public Page<DadosListagemMedicos> listar(@PageableDefault(size = 2, page = 0, sort = {"nome","crm"} ) Pageable paginacao)  {
+        //seria tipo List se não tivesse a paginação (Page)
+        //return repository.findAll(); retornaria todos os dados da lista DE MÉDICOS CADASTRADOS
+
+        return repository.findAll(paginacao).map(DadosListagemMedicos::new);
+        //repository.findAll() -> pega todas as entidades do banco e devolve uma List<Medico>.
+        //.stream() -> transforma essa lista num Stream para processamento funcional.
+        //map(...) -> percorre cada elemento do stream, aplicando a função passada.
+        //DadosListagemMedicos::new -> é uma constructor reference: para cada Medico executa new DadosListagemMedicos(medico).
+        //toList() -> é usado para converter um Stream em uma List de forma simples e direta.
+
+
+        //Para haver ordenação dos dados na url, basta usar da seguinte forma : http://localhost:8080/medicos?sort=nome
+        //Para que haja paginação, basta utilizar da seguinte foram na url : http://localhost:8080/medicos?size=2&page=0
+        // Usar ",desc" para ordenar de fora decrescente
+    }
 }
