@@ -1,10 +1,7 @@
 package fab.relatorio.api.controller;
 
 
-import fab.relatorio.api.medico.DadosCadastroMedico;
-import fab.relatorio.api.medico.DadosListagemMedicos;
-import fab.relatorio.api.medico.Medico;
-import fab.relatorio.api.medico.MedicoRepository;
+import fab.relatorio.api.medico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +42,13 @@ public class medicoController {
         //Para haver ordenação dos dados na url, basta usar da seguinte forma : http://localhost:8080/medicos?sort=nome
         //Para que haja paginação, basta utilizar da seguinte foram na url : http://localhost:8080/medicos?size=2&page=0
         // Usar ",desc" para ordenar de fora decrescente
+    }
+
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedicos dados) {
+        var medico = repository.getReferenceById(dados.id());
+        medico.atualizarinformacoes(dados);
     }
 }
