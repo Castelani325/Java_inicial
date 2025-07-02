@@ -31,12 +31,14 @@ public class medicoController {
         //seria tipo List se não tivesse a paginação (Page)
         //return repository.findAll(); retornaria todos os dados da lista DE MÉDICOS CADASTRADOS
 
-        return repository.findAll(paginacao).map(DadosListagemMedicos::new);
+        //return repository.findAll(paginacao).map(DadosListagemMedicos::new);
         //repository.findAll() -> pega todas as entidades do banco e devolve uma List<Medico>.
         //.stream() -> transforma essa lista num Stream para processamento funcional.
         //map(...) -> percorre cada elemento do stream, aplicando a função passada.
         //DadosListagemMedicos::new -> é uma constructor reference: para cada Medico executa new DadosListagemMedicos(medico).
         //toList() -> é usado para converter um Stream em uma List de forma simples e direta.
+
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicos::new);
 
 
         //Para haver ordenação dos dados na url, basta usar da seguinte forma : http://localhost:8080/medicos?sort=nome
@@ -55,7 +57,9 @@ public class medicoController {
     @DeleteMapping ("/{id}")
     @Transactional
     public void excluir (@PathVariable Long id) {
-        repository.deleteById(id);
+        //repository.deleteById(id); DELETA DO BD
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
     }
 
 }
