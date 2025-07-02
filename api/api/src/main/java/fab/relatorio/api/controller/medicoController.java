@@ -58,7 +58,7 @@ public class medicoController {
     @Transactional
     public void excluir (@PathVariable Long id) {
         //repository.deleteById(id); DELETA DO BD
-        var medico = repository.getReferenceById(id);
+        var medico = repository.getReferenceById(id); // Realiza apenas a troca da variavel "Ativo" de True para False
         medico.excluir();
     }
 
