@@ -2,15 +2,16 @@ package fab.relatorio.api.controller;
 
 
 import fab.relatorio.api.paciente.DadosCadastroPaciente;
+import fab.relatorio.api.paciente.DadosListagemPacientes;
 import fab.relatorio.api.paciente.Paciente;
 import fab.relatorio.api.paciente.PacienteRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/pacientes")
@@ -24,4 +25,18 @@ public class pacienteController {
     public void cadastrar(@RequestBody @Valid DadosCadastroPaciente dados) {
         repository.save(new Paciente(dados));
     }
+
+
+    @GetMapping
+    public Page<DadosListagemPacientes> listar (@PageableDefault (size = 4, page = 0, sort = {"nome","cpf"}) Pageable paginacao){
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPacientes::new);
+        // No teste no Insomnia, está apenas listando o primeiro
+        // Possivelmente, a variavel ATIVO está vindo como false por padrão
+    }
+
+    // Criar metodo ATUALIZAR
+    // Criar metodo EXCLUIR
+
 }
+
+

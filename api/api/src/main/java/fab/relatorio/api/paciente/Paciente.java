@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +25,8 @@ public class Paciente {
 
     @Embedded
     private Endereco endereco;
+
+    private Boolean ativo;
 
     public Paciente(DadosCadastroPaciente dados){
         this.nome = dados.nome();
