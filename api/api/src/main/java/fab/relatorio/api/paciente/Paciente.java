@@ -29,13 +29,18 @@ public class Paciente {
     private Boolean ativo;
 
     public Paciente(DadosCadastroPaciente dados){
+        this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
         this.cpf = dados.cpf();
         this.endereco = new Endereco(dados.endereco());
+
     }
 
+    public void excluir() {
+        this.ativo = false;
+    }
 }
 
 

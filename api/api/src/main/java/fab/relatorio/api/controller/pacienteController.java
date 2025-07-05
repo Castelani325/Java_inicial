@@ -30,8 +30,14 @@ public class pacienteController {
     @GetMapping
     public Page<DadosListagemPacientes> listar (@PageableDefault (size = 4, page = 0, sort = {"nome","cpf"}) Pageable paginacao){
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPacientes::new);
-        // No teste no Insomnia, está apenas listando o primeiro
-        // Possivelmente, a variavel ATIVO está vindo como false por padrão
+
+    }
+    @PutMapping
+    @Transactional
+    public void excluir (@PathVariable Long id) {
+
+        var paciente = repository.getReferenceById(id);
+        paciente.excluir();
     }
 
     // Criar metodo ATUALIZAR
