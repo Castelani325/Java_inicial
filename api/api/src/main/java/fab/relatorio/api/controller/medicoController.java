@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +22,13 @@ public class medicoController {
 
     @PostMapping
     @Transactional //Se tudo der certo, todas as alterações serão confirmadas (commit).
-    public void cadastrar (@RequestBody @Valid DadosCadastroMedico dados) {
+    public ResponseEntity cadastrar (@RequestBody @Valid DadosCadastroMedico dados) { // è usado o código HTTP 201
 
         repository.save(new Medico(dados));
     }
 
     @GetMapping
-    public Page<DadosListagemMedicos> listar(@PageableDefault(size = 2, page = 0, sort = {"nome","crm"} ) Pageable paginacao)  {
+    public ResponseEntity <Page<DadosListagemMedicos>> listar(@PageableDefault(size = 2, page = 0, sort = {"nome","crm"} ) Pageable paginacao)  {
         //seria tipo List se não tivesse a paginação (Page)
         //return repository.findAll(); retornaria todos os dados da lista DE MÉDICOS CADASTRADOS
 
@@ -38,7 +39,9 @@ public class medicoController {
         //DadosListagemMedicos::new -> é uma constructor reference: para cada Medico executa new DadosListagemMedicos(medico).
         //toList() -> é usado para converter um Stream em uma List de forma simples e direta.
 
-        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicos::new);
+        var page = return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicos::new);
+
+        return ResponseEntity.ok(page);
 
 
         //Para haver ordenação dos dados na url, basta usar da seguinte forma : http://localhost:8080/medicos?sort=nome
@@ -49,17 +52,22 @@ public class medicoController {
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedicos dados) {
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedicos dados) {
         var medico = repository.getReferenceById(dados.id());
         medico.atualizarinformacoes(dados);
+
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+
     }
 
     @DeleteMapping ("/{id}")
     @Transactional
-    public void excluir (@PathVariable Long id) {
+    public ResponseEntity excluir (@PathVariable Long id) { //ResponseEntity é uma boa prática para resposta de método Delete
         //repository.deleteById(id); DELETA DO BD
         var medico = repository.getReferenceById(id); // Realiza apenas a troca da variavel "Ativo" de True para False
         medico.excluir();
+
+        return ResponseEntity.noContent().build();
     }
 
 }

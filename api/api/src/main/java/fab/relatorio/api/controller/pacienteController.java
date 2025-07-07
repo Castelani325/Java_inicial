@@ -1,10 +1,7 @@
 package fab.relatorio.api.controller;
 
 
-import fab.relatorio.api.paciente.DadosCadastroPaciente;
-import fab.relatorio.api.paciente.DadosListagemPacientes;
-import fab.relatorio.api.paciente.Paciente;
-import fab.relatorio.api.paciente.PacienteRepository;
+import fab.relatorio.api.paciente.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,7 @@ public class pacienteController {
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPacientes::new);
 
     }
-    @PutMapping
+    @DeleteMapping ("/{id}")
     @Transactional
     public void excluir (@PathVariable Long id) {
 
@@ -41,7 +38,13 @@ public class pacienteController {
     }
 
     // Criar metodo ATUALIZAR
-    // Criar metodo EXCLUIR
+    @PutMapping
+    @Transactional
+    public void atualizar (@RequestBody @Valid DadosAtualizarPaciente dados) {
+        var paciente = repository.getReferenceById(dados.id());
+        paciente.atualizarInformacoes(dados);
+
+   }
 
 }
 
