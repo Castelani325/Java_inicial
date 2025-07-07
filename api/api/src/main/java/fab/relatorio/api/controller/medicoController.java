@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -22,9 +23,15 @@ public class medicoController {
 
     @PostMapping
     @Transactional //Se tudo der certo, todas as alterações serão confirmadas (commit).
-    public ResponseEntity cadastrar (@RequestBody @Valid DadosCadastroMedico dados) { // è usado o código HTTP 201
+    public ResponseEntity cadastrar (@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) { // è usado o código HTTP 201
 
-        repository.save(new Medico(dados));
+        var medico = new Medico(dados);
+
+        repository.save(medico);
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri(); //é o endereço onde a api está funcionando (localhost)
+
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
     @GetMapping
@@ -39,9 +46,8 @@ public class medicoController {
         //DadosListagemMedicos::new -> é uma constructor reference: para cada Medico executa new DadosListagemMedicos(medico).
         //toList() -> é usado para converter um Stream em uma List de forma simples e direta.
 
-        var page = return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicos::new);
-
-        return ResponseEntity.ok(page);
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicos::new);
+        return ResponseEntity.ok(page); //Continua vindo o codigo 200, mas agora vem o corpo do registro na resposta
 
 
         //Para haver ordenação dos dados na url, basta usar da seguinte forma : http://localhost:8080/medicos?sort=nome
@@ -68,6 +74,13 @@ public class medicoController {
         medico.excluir();
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping ("/{id}")
+    public ResponseEntity Detalhar (@PathVariable Long id) { //ResponseEntity é uma boa prática para resposta de método Delete
+        var medico = repository.getReferenceById(id); // Realiza apenas a troca da variavel "Ativo" de True para False
+
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
 }
