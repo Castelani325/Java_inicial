@@ -1,7 +1,7 @@
-package fab.relatorio.api.paciente;
+package fab.relatorio.api.Domain.paciente;
 
 
-import fab.relatorio.api.endereco.Endereco;
+import fab.relatorio.api.Domain.endereco.Endereco;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;

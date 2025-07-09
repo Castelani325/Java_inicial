@@ -1,4 +1,4 @@
-package fab.relatorio.api.medico;
+package fab.relatorio.api.Domain.medico;
 
 public enum Especialidade {
     ortopedia,

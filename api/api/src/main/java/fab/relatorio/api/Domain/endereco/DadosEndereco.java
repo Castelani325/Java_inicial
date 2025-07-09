@@ -1,4 +1,4 @@
-package fab.relatorio.api.endereco;
+package fab.relatorio.api.Domain.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

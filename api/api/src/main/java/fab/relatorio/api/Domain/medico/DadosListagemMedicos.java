@@ -1,4 +1,4 @@
-package fab.relatorio.api.medico;
+package fab.relatorio.api.Domain.medico;
 
 public record DadosListagemMedicos(Long id, String nome, String email, String crm, Especialidade especialidade) {
 

@@ -1,8 +1,8 @@
 //DadosCadastroPaciente
-package fab.relatorio.api.paciente;
+package fab.relatorio.api.Domain.paciente;
 
 
-import fab.relatorio.api.endereco.DadosEndereco;
+import fab.relatorio.api.Domain.endereco.DadosEndereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

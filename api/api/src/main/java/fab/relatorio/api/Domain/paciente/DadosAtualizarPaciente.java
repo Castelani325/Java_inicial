@@ -1,7 +1,6 @@
-package fab.relatorio.api.paciente;
+package fab.relatorio.api.Domain.paciente;
 
-import fab.relatorio.api.endereco.DadosEndereco;
-import fab.relatorio.api.endereco.Endereco;
+import fab.relatorio.api.Domain.endereco.DadosEndereco;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosAtualizarPaciente(

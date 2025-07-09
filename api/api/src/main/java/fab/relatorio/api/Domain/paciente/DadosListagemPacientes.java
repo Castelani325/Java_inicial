@@ -1,6 +1,4 @@
-package fab.relatorio.api.paciente;
-
-import fab.relatorio.api.medico.Medico;
+package fab.relatorio.api.Domain.paciente;
 
 public record DadosListagemPacientes (Long id, String nome, String email, String cpf, String telefone){
 

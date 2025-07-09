@@ -1,4 +1,4 @@
-package fab.relatorio.api.endereco;
+package fab.relatorio.api.Domain.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

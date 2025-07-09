@@ -1,6 +1,6 @@
-package fab.relatorio.api.medico;
+package fab.relatorio.api.Domain.medico;
 
-import fab.relatorio.api.endereco.Endereco;
+import fab.relatorio.api.Domain.endereco.Endereco;
 
 public record DadosDetalhamentoMedico(Long id, String nome, String email, String crm, String telefone, Especialidade especialidade, Endereco endereco ) {
 

@@ -1,7 +1,7 @@
 package fab.relatorio.api.controller;
 
 
-import fab.relatorio.api.medico.*;
+import fab.relatorio.api.Domain.medico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -35,7 +33,7 @@ public class medicoController {
     }
 
     @GetMapping
-    public ResponseEntity <Page<DadosListagemMedicos>> listar(@PageableDefault(size = 2, page = 0, sort = {"nome","crm"} ) Pageable paginacao)  {
+    public ResponseEntity <Page<DadosListagemMedicos>> listar(@PageableDefault(size = 20, page = 0, sort = {"nome","crm"} ) Pageable paginacao)  {
         //seria tipo List se não tivesse a paginação (Page)
         //return repository.findAll(); retornaria todos os dados da lista DE MÉDICOS CADASTRADOS
 

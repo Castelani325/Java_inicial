@@ -1,7 +1,6 @@
-package fab.relatorio.api.medico;
+package fab.relatorio.api.Domain.medico;
 
-import fab.relatorio.api.endereco.DadosEndereco;
-import fab.relatorio.api.endereco.Endereco;
+import fab.relatorio.api.Domain.endereco.DadosEndereco;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosAtualizacaoMedicos(
