@@ -1,4 +1,4 @@
-package fab.relatorio.api.infra;
+package fab.relatorio.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
