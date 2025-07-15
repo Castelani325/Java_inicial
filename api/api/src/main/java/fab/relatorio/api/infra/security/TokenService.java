@@ -18,6 +18,7 @@ public class TokenService {
     private String secret; // A chave secreta lida do application.properties
 
     public String gerarToken(Usuario usuario) {
+
         try {
             var algoritmo = Algorithm.HMAC256(secret); // Usando a chave secreta lida
             return JWT.create()

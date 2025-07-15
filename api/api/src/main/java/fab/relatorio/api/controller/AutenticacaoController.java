@@ -3,6 +3,7 @@ package fab.relatorio.api.controller;
 
 import fab.relatorio.api.Domain.usuario.DadosAutenticacao;
 import fab.relatorio.api.Domain.usuario.Usuario;
+import fab.relatorio.api.infra.security.DadosTokenJWT;
 import fab.relatorio.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,13 @@ public class AutenticacaoController {
     private TokenService tokenService ;
 
     @PostMapping
-    public ResponseEntity efeturarLogin (@RequestBody @Valid DadosAutenticacao dados) {
+    public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authentication = manager.authenticate(authenticationToken);
 
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(token);
-        return ResponseEntity.ok(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
-    };
+        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+    }
 
 }
