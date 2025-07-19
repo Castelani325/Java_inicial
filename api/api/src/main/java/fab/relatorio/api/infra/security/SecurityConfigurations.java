@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true) // Necessário para que a anotação @Secured("ROLE_ADMIN") nos controllers funcionem
 public class SecurityConfigurations {
 
 
@@ -38,6 +40,10 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         // Exige autenticação para qualquer outra requisição.
                         // Eu também corrigi um erro de digitação do seu código original ("anuRequest" para "anyRequest").
+
+                        //Para criar um filtro de métodos por perfil : EX-> Apenas ADMIN podem deletar medicos e pacientes do BD
+                        //.requestMatchers(HttpMethod.DELETE, "/medicos").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.DELETE, "/pacientes").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
