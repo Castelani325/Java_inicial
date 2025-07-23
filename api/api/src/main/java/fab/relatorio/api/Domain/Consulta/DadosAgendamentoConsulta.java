@@ -1,5 +1,6 @@
 package fab.relatorio.api.Domain.Consulta;
 
+import fab.relatorio.api.Domain.medico.Especialidade;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,5 +14,7 @@ public record DadosAgendamentoConsulta(
 
     @NotNull
     @Future
-    LocalDateTime data)
+    LocalDateTime data,
+
+    Especialidade especialidade)
 {}

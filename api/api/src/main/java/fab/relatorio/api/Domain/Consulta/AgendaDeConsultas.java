@@ -5,6 +5,7 @@ import fab.relatorio.api.Domain.medico.Medico;
 import fab.relatorio.api.Domain.medico.MedicoRepository;
 import fab.relatorio.api.Domain.paciente.Paciente;
 import fab.relatorio.api.Domain.paciente.PacienteRepository;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,16 @@ public class AgendaDeConsultas {
         var consulta = new Consulta(null, medico, paciente, dados.data());
         consultaRepository.save(consulta);
     }
+
+    private Medico escolherMedico (DadosAgendamentoConsulta dados){
+        if (dados.idMedico() != null) {
+            return medicoRepository.getReferenceById(dados.idMedico());
+        }
+
+        if (dados.especialidade() == null) {
+            throw new ValidationException("Especialidade obrigatória quando médico não especificado.");
+        }
+
+        return medicoRepository.escolherMedicosAleatorioLivreNaData(dados.especialidade(), dados.data());
+    };
 }
