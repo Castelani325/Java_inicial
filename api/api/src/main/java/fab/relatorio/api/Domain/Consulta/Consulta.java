@@ -8,13 +8,21 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Table (name = "consulta")
-@Entity (name = "consulta")
+@Table (name = "consultas")
+@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode (of ="id")
 public class Consulta {
+
+    @Column(name = "motivo_cancelamento")
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivoCancelamento;
+
+    public void cancelar (MotivoCancelamento motivo){
+        this.motivoCancelamento = motivo;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -27,7 +27,7 @@ public class AgendaDeConsultas {
 
         var medico = medicoRepository.findById(dados.idMedico()).get();
         var paciente = pacienteRepository.findById(dados.idPaciente()).get();
-        var consulta = new Consulta(null, medico, paciente, dados.data());
+        var consulta = new Consulta(null, null, medico, paciente, dados.data() );
         consultaRepository.save(consulta);
     }
 
@@ -42,4 +42,14 @@ public class AgendaDeConsultas {
 
         return medicoRepository.escolherMedicosAleatorioLivreNaData(dados.especialidade(), dados.data());
     };
+
+    public void cancelar (DadosCancelamentoConsulta dados) {
+
+        if (!consultaRepository.existsById(dados.idConsulta())){
+            throw new ValidationException("id da Consulta informado não existe");
+        }
+        
+        var consulta = consultaRepository.getReferenceById(dados.idConsulta());
+        consulta.cancelar(dados.motivo());
+    }
 }
