@@ -2,10 +2,12 @@ package fab.relatorio.api.Domain.Consulta.Validacoes;
 
 import fab.relatorio.api.Domain.Consulta.DadosAgendamentoConsulta;
 import jakarta.validation.ValidationException;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 
-public class ValidarHorarioDeFuncionamentoClinica {
+@Component
+public class ValidarHorarioDeFuncionamentoClinica implements ValidadorAgendamentoDeConsulta {
 
     public void validar (DadosAgendamentoConsulta dados) {
         var dataConsulta = dados.data();

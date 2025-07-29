@@ -1,6 +1,7 @@
 package fab.relatorio.api.Domain.Consulta;
 
 
+import fab.relatorio.api.Domain.Consulta.Validacoes.ValidadorAgendamentoDeConsulta;
 import fab.relatorio.api.Domain.medico.Medico;
 import fab.relatorio.api.Domain.medico.MedicoRepository;
 import fab.relatorio.api.Domain.paciente.Paciente;
@@ -8,6 +9,8 @@ import fab.relatorio.api.Domain.paciente.PacienteRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service //Executa as regras de negocio e validacao da aplicacao
 public class AgendaDeConsultas {
@@ -21,12 +24,26 @@ public class AgendaDeConsultas {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private List<ValidadorAgendamentoDeConsulta> validadores;
 
 
     public void agendar (DadosAgendamentoConsulta dados){
 
-        var medico = medicoRepository.findById(dados.idMedico()).get();
-        var paciente = pacienteRepository.findById(dados.idPaciente()).get();
+
+
+        if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())) {
+            throw new ValidationException("Id do médico informado não existe!");
+        }
+
+        validadores.forEach(v -> v.validar(dados));
+
+        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
+        var medico = escolherMedico(dados);
+        if (medico == null) {
+            throw new ValidationException("Não existe médico disponível nessa data!");
+        }
+
         var consulta = new Consulta(null, null, medico, paciente, dados.data() );
         consultaRepository.save(consulta);
     }
