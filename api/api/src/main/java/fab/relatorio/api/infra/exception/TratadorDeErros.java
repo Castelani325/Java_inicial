@@ -1,6 +1,7 @@
 package fab.relatorio.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,6 +28,11 @@ public class TratadorDeErros {
         public dadosErroValidacao(FieldError erro) {
             this(erro.getField(), erro.getDefaultMessage());
         }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity tratarErroRegraDeNegocio(ValidationException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 
     }
 

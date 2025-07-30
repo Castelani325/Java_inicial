@@ -28,7 +28,7 @@ public class AgendaDeConsultas {
     private List<ValidadorAgendamentoDeConsulta> validadores;
 
 
-    public void agendar (DadosAgendamentoConsulta dados){
+    public DadosDetalhamentoConsulta agendar (DadosAgendamentoConsulta dados){
 
 
 
@@ -46,6 +46,8 @@ public class AgendaDeConsultas {
 
         var consulta = new Consulta(null, null, medico, paciente, dados.data() );
         consultaRepository.save(consulta);
+
+        return new DadosDetalhamentoConsulta(consulta);
     }
 
     private Medico escolherMedico (DadosAgendamentoConsulta dados){
