@@ -8,35 +8,31 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice //classe que lida com exceptions
+@RestControllerAdvice // Classe que lida com exceptions
 public class TratadorDeErros {
 
-    @ExceptionHandler(EntityNotFoundException.class) //quando o preenchimento não encontrar retorno
+    @ExceptionHandler(EntityNotFoundException.class) // Quando o preenchimento não encontrar retorno
     public ResponseEntity tratarErros404() {
         return ResponseEntity.notFound().build();
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class) //quando há algum campo preenchido inválido
+    @ExceptionHandler(MethodArgumentNotValidException.class) // Quando há algum campo preenchido inválido
     public ResponseEntity tratarErros400(MethodArgumentNotValidException exception) {
-
         var erros = exception.getFieldErrors();
-        return ResponseEntity.badRequest().body(erros.stream().map(dadosErroValidacao::new).toList());
+        return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
     }
 
-
-    private record dadosErroValidacao (String campo, String mensagem) {
-        public dadosErroValidacao(FieldError erro) {
-            this(erro.getField(), erro.getDefaultMessage());
-        }
-
-    @ExceptionHandler(ValidationException.class)
+    @ExceptionHandler(ValidationException.class) // Tratamento para exceções de regras de negócio
     public ResponseEntity tratarErroRegraDeNegocio(ValidationException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+    // Record para formatar os erros de validação de campos
+    private record DadosErroValidacao (String campo, String mensagem) {
+        public DadosErroValidacao(FieldError erro) {
+            this(erro.getField(), erro.getDefaultMessage());
+        }
     }
-
-
 }
 
 
