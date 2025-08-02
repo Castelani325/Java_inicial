@@ -1,10 +1,10 @@
 package fab.relatorio.api.Domain.Consulta;
 
 
-import fab.relatorio.api.Domain.Consulta.Validacoes.ValidadorAgendamentoDeConsulta;
+import fab.relatorio.api.Domain.Consulta.Validacoes.Agendamento.ValidadorAgendamentoDeConsulta;
+import fab.relatorio.api.Domain.Consulta.Validacoes.Cancelamento.ValidadorCancelamentoDeConsulta;
 import fab.relatorio.api.Domain.medico.Medico;
 import fab.relatorio.api.Domain.medico.MedicoRepository;
-import fab.relatorio.api.Domain.paciente.Paciente;
 import fab.relatorio.api.Domain.paciente.PacienteRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,8 @@ public class AgendaDeConsultas {
     @Autowired
     private List<ValidadorAgendamentoDeConsulta> validadores;
 
+    @Autowired
+    private List<ValidadorCancelamentoDeConsulta> validadoresCancelamento;
 
     public DadosDetalhamentoConsulta agendar (DadosAgendamentoConsulta dados){
 
@@ -67,6 +69,8 @@ public class AgendaDeConsultas {
         if (!consultaRepository.existsById(dados.idConsulta())){
             throw new ValidationException("id da Consulta informado não existe");
         }
+
+        validadoresCancelamento.forEach(v -> v.validar(dados));
         
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
         consulta.cancelar(dados.motivo());

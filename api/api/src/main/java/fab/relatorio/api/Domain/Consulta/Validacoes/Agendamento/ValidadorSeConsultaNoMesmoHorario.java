@@ -1,4 +1,4 @@
-package fab.relatorio.api.Domain.Consulta.Validacoes;
+package fab.relatorio.api.Domain.Consulta.Validacoes.Agendamento;
 
 import fab.relatorio.api.Domain.Consulta.ConsultaRepository;
 import fab.relatorio.api.Domain.Consulta.DadosAgendamentoConsulta;
@@ -13,7 +13,7 @@ public class ValidadorSeConsultaNoMesmoHorario implements ValidadorAgendamentoDe
     private ConsultaRepository repository;
 
     public void validar (DadosAgendamentoConsulta dados){
-        boolean medicoPossuiOutraConsultaNoMesmoHorario = repository.existsByMedicoIdAndData(dados.idMedico(), dados.data());
+        boolean medicoPossuiOutraConsultaNoMesmoHorario = repository.existsByMedicoIdAndDataAndMotivoCancelamentoIsNull(dados.idMedico(), dados.data());
         if (medicoPossuiOutraConsultaNoMesmoHorario){
             throw new ValidationException("Médico já possui outra consulta marcada para esse horário");
         }

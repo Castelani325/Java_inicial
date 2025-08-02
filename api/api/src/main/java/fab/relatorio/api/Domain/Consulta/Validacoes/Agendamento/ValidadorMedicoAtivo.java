@@ -1,4 +1,4 @@
-package fab.relatorio.api.Domain.Consulta.Validacoes;
+package fab.relatorio.api.Domain.Consulta.Validacoes.Agendamento;
 
 import fab.relatorio.api.Domain.Consulta.DadosAgendamentoConsulta;
 import fab.relatorio.api.Domain.medico.MedicoRepository;

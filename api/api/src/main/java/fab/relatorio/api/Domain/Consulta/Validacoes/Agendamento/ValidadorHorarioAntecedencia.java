@@ -1,4 +1,4 @@
-package fab.relatorio.api.Domain.Consulta.Validacoes;
+package fab.relatorio.api.Domain.Consulta.Validacoes.Agendamento;
 
 import fab.relatorio.api.Domain.Consulta.DadosAgendamentoConsulta;
 import jakarta.validation.ValidationException;

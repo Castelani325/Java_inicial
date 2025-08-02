@@ -1,4 +1,4 @@
-package fab.relatorio.api.Domain.Consulta.Validacoes;
+package fab.relatorio.api.Domain.Consulta.Validacoes.Agendamento;
 
 import fab.relatorio.api.Domain.Consulta.ConsultaRepository;
 import fab.relatorio.api.Domain.Consulta.DadosAgendamentoConsulta;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidadoPacienteSemOutraConsultNoDia implements ValidadorAgendamentoDeConsulta {
+public class ValidadorPacienteSemOutraConsultNoDia implements ValidadorAgendamentoDeConsulta {
 
     @Autowired
     private ConsultaRepository repository;
