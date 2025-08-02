@@ -38,6 +38,7 @@ public class SecurityConfigurations {
                         // Permite todas as requisições POST para o endpoint "/login".
                         // Isto substitui o obsoleto antMatchers().
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                         // Exige autenticação para qualquer outra requisição.
                         // Eu também corrigi um erro de digitação do seu código original ("anuRequest" para "anyRequest").
 

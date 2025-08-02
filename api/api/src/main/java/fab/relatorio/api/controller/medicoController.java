@@ -2,6 +2,7 @@ package fab.relatorio.api.controller;
 
 
 import fab.relatorio.api.Domain.medico.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/medicos")
+@SecurityRequirement(name = "bearer-key")
 public class medicoController {
 
     @Autowired //perguntar ao chatgpt
