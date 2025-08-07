@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 class MedicoRepositoryTest {
 
+    @Autowired
     private MedicoRepository medicoRepository;
 
     @Autowired
@@ -40,7 +41,7 @@ class MedicoRepositoryTest {
                 .atTime(10, 0);
 
         //BLoco de teste "given" ou "arrange"
-        var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.cardiologia);
+        var medico = cadastrarMedico("Medico", "medico@voll.med", "222222", Especialidade.cardiologia);
         var paciente = cadastrarPaciente("Paciente", "paciente@email.com", "00000000000");
         cadastrarConsulta(medico, paciente, proximaSegundaAs10);
 
@@ -59,7 +60,7 @@ class MedicoRepositoryTest {
                 .atTime(10, 0);
 
         //BLoco de teste "given" ou "arrange"
-        var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.cardiologia);
+        var medico = cadastrarMedico("Medico", "medico@voll.med", "111111", Especialidade.cardiologia);
 
         //BLoco de teste "when" ou "act"
         var medicoLivre = medicoRepository.escolherMedicosAleatorioLivreNaData(Especialidade.cardiologia, proximaSegundaAs10);

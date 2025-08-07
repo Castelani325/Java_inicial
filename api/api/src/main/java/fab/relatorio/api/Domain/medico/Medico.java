@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 // Define que essa classe será mapeada para a tabela "medicos" no banco de dados
 @Table(name = "medicos")
 
@@ -72,4 +74,6 @@ public class Medico {
     public void excluir() {
         this.ativo = false;
     }
+
 }
+
